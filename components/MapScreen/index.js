@@ -1,15 +1,21 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import MapView from "../MapView";
+import Mapper from "../Mapper";
 import RoamDetails from "../RoamDetails";
 
-const MapStack = createNativeStackNavigator();
+import theme from "../../theme";
+
+const MapStack = createStackNavigator();
 
 const MapScreen = () => {
   return (
-    <MapStack.Navigator>
-      <MapStack.Screen name="Map" component={MapView} />
+    <MapStack.Navigator
+      screenOptions={() => ({
+        headerTintColor: theme.colors.cultured,
+        headerStyle: { backgroundColor: theme.colors.xanadu },
+      })}>
+      <MapStack.Screen name="Map" component={Mapper} />
       <MapStack.Screen name="Roam" component={RoamDetails} />
     </MapStack.Navigator>
   );

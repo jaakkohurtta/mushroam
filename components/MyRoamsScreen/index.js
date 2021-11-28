@@ -1,14 +1,20 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import RoamDetails from "../RoamDetails";
 import RoamsList from "../RoamsList";
 
-const ListStack = createNativeStackNavigator();
+import theme from "../../theme";
+
+const ListStack = createStackNavigator();
 
 const MyRoamsScreen = () => {
   return (
-    <ListStack.Navigator>
+    <ListStack.Navigator
+      screenOptions={() => ({
+        headerTintColor: theme.colors.cultured,
+        headerStyle: { backgroundColor: theme.colors.xanadu },
+      })}>
       <ListStack.Screen name="My Roams" component={RoamsList} />
       <ListStack.Screen name="Roam" component={RoamDetails} />
     </ListStack.Navigator>
