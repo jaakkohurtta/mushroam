@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 
+import { useStateValue } from "../context/AppState";
+
 const RoamsList = ({ navigation }) => {
+  const [{ roams }, _] = useStateValue();
+
+  console.log("roam list", roams);
+
   return (
     <View style={styles.container}>
       <Text>This is the My Roams FlatList.</Text>

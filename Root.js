@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import App from "./App";
-import { LocationState } from "./context/LocationState";
+import { AppStateProvider } from "./context/AppState";
 
 const Root = () => {
   return (
-    <LocationState>
+    <AppStateProvider>
       <App />
-    </LocationState>
+    </AppStateProvider>
   );
 };
 

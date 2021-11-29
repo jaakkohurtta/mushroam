@@ -12,10 +12,10 @@ const MyRoamsScreen = () => {
   return (
     <ListStack.Navigator
       screenOptions={() => ({
-        headerTintColor: theme.colors.cultured,
-        headerStyle: { backgroundColor: theme.colors.xanadu },
+        headerTintColor: theme.colors.light,
+        headerStyle: { backgroundColor: theme.colors.medium },
       })}>
-      <ListStack.Screen name="My Roams" component={RoamsList} />
+      <ListStack.Screen options={{ headerShown: false }} name="My Roams" component={RoamsList} />
       <ListStack.Screen name="Roam" component={RoamDetails} />
     </ListStack.Navigator>
   );

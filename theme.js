@@ -1,17 +1,25 @@
 const theme = {
   colors: {
-    maizeCrayola: "#eec643ff",
-    atomicTangerine: "#ec8c59ff",
-    mahogany: "#b74e15ff",
-    paradisePink: "#ea526fff",
-    eerieBlack: "#141414ff",
-    cultured: "#eef0f2ff",
-    aeroBlue: "#ccf6dbff",
-    teaGreen: "#bcd6b3ff",
-    pineTree: "#31372fff",
-    xanadu: "#778771ff",
-    laurelGreen: "#acb58aff",
+    dark: "#242d2bff",
+    medium: "#abc4b9ff",
+    light: "#fbfcffff",
+    red: "#90323dff",
+    green: "#33c173ff",
+    paleGreen: "#9de4bfff",
+    blue: "#2b50aaff",
+    paleBlue: "#4B72d2ff",
   },
 };
 
 export default theme;
+
+/*
+--charleston-green: #242d2bff;
+--opal: #abc4b9ff;
+--ghost-white: #fbfcffff;
+--red-violet-color-wheel: #90323dff;
+--emerald: #33c173ff;
+--magic-mint: #9de4bfff;
+--sapphire: #2b50aaff;
+            #4B72Ddff;
+*/
