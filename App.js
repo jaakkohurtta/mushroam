@@ -5,9 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Header, Overlay } from "react-native-elements";
 
-import { CREATE_TABLE, SELECT_ALL } from "./sql";
-
 import { useStateValue, setLocation, setRoams } from "./context/AppState";
+import dbService from "./services/database";
 
 import MapScreen from "./components/MapScreen";
 import MyRoamsScreen from "./components/MyRoamsScreen";
@@ -23,13 +22,7 @@ const App = () => {
   const [{ database }, dispatch] = useStateValue();
 
   useEffect(() => {
-    database.transaction(
-      (tx) => {
-        tx.executeSql(CREATE_TABLE);
-      },
-      null,
-      selectAll
-    );
+    dbService.init(database).then((response) => dispatch(setRoams(response)));
 
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -41,12 +34,6 @@ const App = () => {
       dispatch(setLocation(loc));
     })();
   }, []);
-
-  const selectAll = () => {
-    database.transaction((tx) => {
-      tx.executeSql(SELECT_ALL, [], (_, { rows }) => dispatch(setRoams(rows._array)));
-    });
-  };
 
   return (
     <NavigationContainer>
@@ -78,7 +65,9 @@ const App = () => {
         })}>
         <Tab.Screen options={{ headerShown: false }} name="Map Screen" component={MapScreen} />
         <Tab.Screen
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+          }}
           name="My Roams Screen"
           component={MyRoamsScreen}
         />

@@ -1,17 +1,23 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+
+import RoamCard from "./RoamCard";
 
 import { useStateValue } from "../context/AppState";
+import theme from "../theme";
+
+const Separator = () => <View style={{ height: 4, backgroundColor: theme.colors.dark }} />;
 
 const RoamsList = ({ navigation }) => {
   const [{ roams }, _] = useStateValue();
 
-  console.log("roam list", roams);
-
   return (
     <View style={styles.container}>
-      <Text>This is the My Roams FlatList.</Text>
-      <Button onPress={() => navigation.navigate("Roam", { roam: "Black trumpet" })} title="Roam" />
+      <FlatList
+        data={roams}
+        renderItem={({ item }) => <RoamCard key={item.id} roam={item} navigation={navigation} />}
+        ItemSeparatorComponent={Separator}
+      />
     </View>
   );
 };
@@ -19,9 +25,11 @@ const RoamsList = ({ navigation }) => {
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    backgroundColor: theme.colors.dark,
     justifyContent: "center",
+  },
+  list: {
+    marginTop: 4,
   },
 });
 

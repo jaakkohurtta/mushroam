@@ -15,8 +15,12 @@ const MyRoamsScreen = () => {
         headerTintColor: theme.colors.light,
         headerStyle: { backgroundColor: theme.colors.medium },
       })}>
-      <ListStack.Screen options={{ headerShown: false }} name="My Roams" component={RoamsList} />
-      <ListStack.Screen name="Roam" component={RoamDetails} />
+      <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
+      <ListStack.Screen
+        name="Roam Details"
+        component={RoamDetails}
+        options={({ route }) => ({ title: route.params.roam.title })}
+      />
     </ListStack.Navigator>
   );
 };

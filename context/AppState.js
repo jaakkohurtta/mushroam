@@ -23,7 +23,6 @@ const reducer = (state, action) => {
         },
       };
     case "SET_ROAMS":
-      // console.log("roam reducer", action.payload);
       return {
         ...state,
         roams: action.payload,

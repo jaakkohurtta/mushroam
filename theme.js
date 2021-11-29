@@ -8,6 +8,7 @@ const theme = {
     paleGreen: "#9de4bfff",
     blue: "#2b50aaff",
     paleBlue: "#4B72d2ff",
+    yellow: "#eee16dff",
   },
 };
 
