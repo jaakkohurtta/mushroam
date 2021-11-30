@@ -1,35 +1,47 @@
-import React from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import ViewShot from "react-native-view-shot";
 
-import { useStateValue } from "../context/AppState";
+import { useStateValue, setMapSnap } from "../context/AppState";
 
 import theme from "../theme";
 
 const Mapper = ({ navigation }) => {
-  const [{ location }, _] = useStateValue();
+  const [{ location }, dispatch] = useStateValue();
+  const mapRef = useRef();
+
+  const addNewRoam = () => {
+    mapRef.current.capture().then((snap) => {
+      dispatch(setMapSnap(snap));
+      navigation.navigate("New Roam");
+    });
+  };
 
   return (
     <>
       {location.coords ? (
-        <MapView
-          style={{ flex: 1 }}
-          region={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: location.latitudeDelta,
-            longitudeDelta: location.longitudeDelta,
-          }}>
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            }}
-            title="Roaming"
-            pinColor={theme.colors.paleGreen}
-            onPress={() => navigation.navigate("New Roam Screen")}
-          />
-        </MapView>
+        <>
+          <ViewShot style={{ flex: 1 }} ref={mapRef} options={{ result: "base64" }}>
+            <MapView
+              style={{ flex: 1 }}
+              region={{
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: location.latitudeDelta,
+                longitudeDelta: location.longitudeDelta,
+              }}>
+              <Marker
+                coordinate={{
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+                }}
+                pinColor={theme.colors.paleBlue}
+                onPress={() => addNewRoam()}
+              />
+            </MapView>
+          </ViewShot>
+        </>
       ) : (
         <View style={styles.container}>
           <Text style={styles.textField}>No permission to use device location.</Text>

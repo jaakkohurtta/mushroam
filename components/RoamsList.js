@@ -18,14 +18,14 @@ const RoamsList = ({ navigation }) => {
         renderItem={({ item }) => <RoamCard key={item.id} roam={item} navigation={navigation} />}
         ItemSeparatorComponent={Separator}
       />
+      <Separator />
     </View>
   );
 };
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: theme.colors.dark,
+    backgroundColor: theme.colors.light,
     justifyContent: "center",
   },
   list: {

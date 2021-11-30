@@ -8,6 +8,7 @@ const initialState = {
     latitudeDelta: 0.032,
     longitudeDelta: 0.022,
   },
+  mapSnap: null,
 };
 
 export const AppContext = createContext([initialState, () => initialState]);
@@ -27,6 +28,11 @@ const reducer = (state, action) => {
         ...state,
         roams: action.payload,
       };
+    case "SET_MAP_SNAP":
+      return {
+        ...state,
+        mapSnap: action.payload,
+      };
     default:
       return state;
   }
@@ -44,6 +50,13 @@ export const setRoams = (roams) => {
   return {
     type: "SET_ROAMS",
     payload: roams,
+  };
+};
+
+export const setMapSnap = (snap) => {
+  return {
+    type: "SET_MAP_SNAP",
+    payload: snap,
   };
 };
 

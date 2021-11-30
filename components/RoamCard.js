@@ -1,21 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { ListItem, Icon } from "react-native-elements";
-
-import { useStateValue } from "../context/AppState";
+import { Image, ListItem, Icon } from "react-native-elements";
 
 import theme from "../theme";
 
 const RoamCard = ({ roam, navigation }) => {
-  const [{ location }, _] = useStateValue();
-
   return (
-    <ListItem>
-      <View style={styles.map}></View>
+    <ListItem containerStyle={styles.container}>
+      <Image style={styles.image} source={{ uri: `data:image/png;base64,${roam.image}` }} />
       <ListItem.Content>
-        <ListItem.Title style={styles.title}>{roam.title}</ListItem.Title>
+        <ListItem.Title sty le={styles.title}>
+          {roam.title}
+        </ListItem.Title>
         <View style={styles.subtitle}>
-          <Text>Pvm</Text>
+          <Text>{roam.date}</Text>
           <Text>Haul</Text>
           <Text>Type</Text>
         </View>
@@ -23,7 +21,7 @@ const RoamCard = ({ roam, navigation }) => {
       <Icon
         name="arrow-forward"
         type="ionicon"
-        size={24}
+        size={32}
         color={theme.colors.medium}
         onPress={() => navigation.navigate("Roam Details", { roam })}
       />
@@ -32,6 +30,9 @@ const RoamCard = ({ roam, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.light,
+  },
   title: {
     fontSize: 20,
   },
@@ -40,24 +41,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: 200,
   },
-  map: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: theme.colors.dark,
+  image: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderColor: theme.colors.medium,
+    borderWidth: 2,
   },
 });
 
 export default RoamCard;
-
-/*
-    <Pressable onPress={() => navigation.navigate("Roam Details", { roam })}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.header}>{roam.title}</Text>
-          <Text style={styles.header}>2.10.2021</Text>
-        </View>
-      </View>
-    </Pressable>
-
-*/

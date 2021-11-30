@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 
 import { useStateValue, setRoams } from "../context/AppState";
 import dbService from "../services/database";
+import theme from "../theme";
 
 const RoamDetails = ({ route, _ }) => {
   const [{ database }, dispatch] = useStateValue();
@@ -19,7 +20,12 @@ const RoamDetails = ({ route, _ }) => {
       <Text>
         This is Roam Details screen for {roam.title}(id: {roam.id}).
       </Text>
-      <Button title="Delete" onPress={() => deleteRoam(roam.id)} />
+      <Button
+        title="Delete"
+        buttonStyle={styles.button}
+        titleStyle={styles.buttonTitle}
+        onPress={() => deleteRoam(roam.id)}
+      />
     </View>
   );
 };
@@ -30,6 +36,14 @@ export const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  button: {
+    backgroundColor: theme.colors.paleBlue,
+    width: 150,
+  },
+  buttonTitle: {
+    color: theme.colors.light,
+    fontWeight: "bold",
   },
 });
 

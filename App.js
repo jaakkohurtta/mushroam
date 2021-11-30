@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
+import { Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Header, Overlay } from "react-native-elements";
+import { Button, Header, Overlay } from "react-native-elements";
 
 import { useStateValue, setLocation, setRoams } from "./context/AppState";
 import dbService from "./services/database";
@@ -35,6 +36,18 @@ const App = () => {
     })();
   }, []);
 
+  const resetDatabase = () => {
+    Alert.alert("Drop table?", "Really?", [
+      {
+        text: "Yes",
+        onPress: () => dbService.reset(database),
+      },
+      {
+        text: "No",
+      },
+    ]);
+  };
+
   return (
     <NavigationContainer>
       <Overlay
@@ -48,10 +61,17 @@ const App = () => {
           text: "Mushroam",
           style: { letterSpacing: 2, fontSize: 24, color: theme.colors.light },
         }}
+        rightComponent={
+          <Button
+            title="Reset"
+            buttonStyle={{ backgroundColor: theme.colors.red }}
+            onPress={() => resetDatabase()}
+          />
+        }
       />
       <Tab.Navigator
         screenOptions={() => ({
-          tabBarActiveBackgroundColor: theme.colors.green,
+          tabBarActiveBackgroundColor: theme.colors.medium,
           tabBarInactiveBackgroundColor: theme.colors.dark,
           tabBarInactiveTintColor: theme.colors.light,
           tabBarActiveTintColor: theme.colors.light,
@@ -70,15 +90,6 @@ const App = () => {
           }}
           name="My Roams Screen"
           component={MyRoamsScreen}
-        />
-        <Tab.Screen
-          options={{
-            headerTintColor: theme.colors.light,
-            headerStyle: { backgroundColor: theme.colors.medium },
-            title: "Add new roam",
-          }}
-          name="New Roam Screen"
-          component={NewRoamScreen}
         />
       </Tab.Navigator>
     </NavigationContainer>

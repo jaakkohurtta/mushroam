@@ -14,7 +14,8 @@ const MyRoamsScreen = () => {
       screenOptions={() => ({
         headerTintColor: theme.colors.light,
         headerStyle: { backgroundColor: theme.colors.medium },
-      })}>
+      })}
+      initialRouteName="My Roams">
       <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
       <ListStack.Screen
         name="Roam Details"
