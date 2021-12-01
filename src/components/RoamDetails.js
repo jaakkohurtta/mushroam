@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-elements";
+import { Button } from "react-native-paper";
 
 import { useStateValue, setRoams } from "../context/AppState";
 import dbService from "../services/database";
@@ -20,12 +20,9 @@ const RoamDetails = ({ route, _ }) => {
       <Text>
         This is Roam Details screen for {roam.title}(id: {roam.id}).
       </Text>
-      <Button
-        title="Delete"
-        buttonStyle={styles.button}
-        titleStyle={styles.buttonTitle}
-        onPress={() => deleteRoam(roam.id)}
-      />
+      <Button mode="contained" onPress={() => deleteRoam(roam.id)}>
+        Delete
+      </Button>
     </View>
   );
 };

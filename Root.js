@@ -1,13 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import App from "./App";
-import { AppStateProvider } from "./context/AppState";
+import { Provider as ThemeProvider } from "react-native-paper";
+
+import App from "./src/App";
+import { AppStateProvider } from "./src/context/AppState";
+
+import theme from "./src/theme";
 
 const Root = () => {
   return (
-    <AppStateProvider>
-      <App />
-    </AppStateProvider>
+    <ThemeProvider theme={theme}>
+      <AppStateProvider>
+        <App />
+      </AppStateProvider>
+    </ThemeProvider>
   );
 };
 

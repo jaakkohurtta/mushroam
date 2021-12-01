@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useRef } from "react";
+import { StyleSheet } from "react-native";
+import { Paragraph } from "react-native-paper";
 import MapView, { Marker } from "react-native-maps";
 import ViewShot from "react-native-view-shot";
 
@@ -36,17 +37,16 @@ const Mapper = ({ navigation }) => {
                   latitude: location.coords.latitude,
                   longitude: location.coords.longitude,
                 }}
-                pinColor={theme.colors.paleBlue}
+                pinColor={theme.colors.primary}
                 onPress={() => addNewRoam()}
               />
             </MapView>
           </ViewShot>
         </>
       ) : (
-        <View style={styles.container}>
-          <Text style={styles.textField}>No permission to use device location.</Text>
-          <Text style={styles.textField}>Grant permission in the device settings.</Text>
-        </View>
+        <Paragraph>
+          No permission to use device location. Grant permission in the device settings.
+        </Paragraph>
       )}
     </>
   );

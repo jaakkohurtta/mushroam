@@ -4,18 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import RoamDetails from "../RoamDetails";
 import RoamsList from "../RoamsList";
 
-import theme from "../../theme";
-
 const ListStack = createStackNavigator();
 
 const MyRoamsScreen = () => {
   return (
-    <ListStack.Navigator
-      screenOptions={() => ({
-        headerTintColor: theme.colors.light,
-        headerStyle: { backgroundColor: theme.colors.medium },
-      })}
-      initialRouteName="My Roams">
+    <ListStack.Navigator screenOptions={() => ({})}>
       <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
       <ListStack.Screen
         name="Roam Details"

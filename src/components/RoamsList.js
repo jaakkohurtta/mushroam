@@ -1,31 +1,31 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Divider } from "react-native-paper";
 
 import RoamCard from "./RoamCard";
 
 import { useStateValue } from "../context/AppState";
 import theme from "../theme";
 
-const Separator = () => <View style={{ height: 4, backgroundColor: theme.colors.dark }} />;
-
 const RoamsList = ({ navigation }) => {
   const [{ roams }, _] = useStateValue();
 
   return (
     <View style={styles.container}>
+      <Divider style={{ height: 2 }} />
       <FlatList
         data={roams}
         renderItem={({ item }) => <RoamCard key={item.id} roam={item} navigation={navigation} />}
-        ItemSeparatorComponent={Separator}
+        ItemSeparatorComponent={() => <Divider style={{ height: 2 }} />}
       />
-      <Separator />
+      <Divider style={{ height: 2 }} />
     </View>
   );
 };
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.light,
+    backgroundColor: theme.colors.surface,
     justifyContent: "center",
   },
   list: {
