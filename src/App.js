@@ -47,7 +47,7 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        <Header title="Mushroam" />
+        <Header title="Mushroam" resetDatabase={resetDatabase} />
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarStyle: {

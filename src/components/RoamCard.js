@@ -8,7 +8,7 @@ const RoamCard = ({ roam, navigation }) => {
   return (
     <Card style={styles.card}>
       <Card.Title
-        leftStyle={styles.avatar}
+        leftStyle={styles.left}
         left={() => <Avatar.Image source={{ uri: `data:image/png;base64,${roam.image}` }} />}
         right={() => (
           <IconButton
@@ -18,7 +18,7 @@ const RoamCard = ({ roam, navigation }) => {
           />
         )}
         title={roam.title}
-        subtitle={`half a bucket of chantarels on ${roam.date}`}
+        subtitle={`half a bucket of ${roam.mushroom}s on ${roam.date}`}
       />
     </Card>
   );
@@ -28,11 +28,8 @@ const styles = StyleSheet.create({
   card: {
     padding: 4,
   },
-  avatar: {
-    height: 64,
+  left: {
     width: 64,
-    borderRadius: 28,
-    backgroundColor: theme.colors.text,
   },
 });
 

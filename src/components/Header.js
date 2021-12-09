@@ -2,11 +2,11 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Title, IconButton } from "react-native-paper";
 
-const Header = ({ title }) => {
+const Header = ({ title, resetDatabase }) => {
   return (
     <View style={styles.container}>
       <Title>{title}</Title>
-      <IconButton icon="cog" size={24} onPress={() => console.log("Open settings modal.")} />
+      <IconButton icon="cog" size={24} onPress={() => resetDatabase()} />
     </View>
   );
 };

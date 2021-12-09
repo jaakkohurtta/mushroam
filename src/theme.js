@@ -13,6 +13,7 @@ const theme = {
     notification: "#80b38f",
     backdrop: "#a2a2a4",
     disabled: "#a2a2a4",
+    placeholder: "gray",
   },
 };
 
