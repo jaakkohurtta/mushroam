@@ -81,10 +81,9 @@ const NewRoamScreen = ({ navigation }) => {
   }, []);
 
   const addRoam = async () => {
-    console.log(avgtemp, rainfall);
-
     const newRoam = {
       title,
+      timestamp: Math.floor(Date.now() / 1000),
       date,
       mushroom,
       vibes,
@@ -127,16 +126,22 @@ const NewRoamScreen = ({ navigation }) => {
           </Subheading>
           <View style={styles.weather}>
             {loading ? (
-              <Text>Loading weather..</Text>
+              <Subheading>Loading weather..</Subheading>
             ) : (
               <>
-                <Subheading>Weather from last 5 days</Subheading>
-                <Text>
-                  {rainfall === -1
-                    ? "No rain data available for this location"
-                    : `Cumulative rain fall: ${rainfall} mm`}
-                </Text>
-                <Text>Average temperature: {avgtemp} celcius</Text>
+                {rainfall && avgtemp ? (
+                  <>
+                    <Subheading>Weather from last 5 days</Subheading>
+                    <Text>
+                      {rainfall === -1
+                        ? "No rain data available for this location"
+                        : `Cumulative rain fall: ${rainfall} mm`}
+                    </Text>
+                    <Text>Average temperature: {avgtemp} celcius</Text>
+                  </>
+                ) : (
+                  <Subheading>No weather data available.</Subheading>
+                )}
               </>
             )}
           </View>
@@ -208,7 +213,7 @@ export const styles = StyleSheet.create({
     width: 256,
     height: 256,
     borderRadius: 128,
-    borderColor: theme.colors.text,
+    borderColor: theme.colors.background,
     borderWidth: 1,
   },
   inputGroup: {
