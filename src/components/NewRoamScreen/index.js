@@ -18,7 +18,7 @@ import {
 } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 
-import { setRoams, useStateValue } from "../../context/AppState";
+import { setRoams, setNotification, useStateValue } from "../../context/AppState";
 import dbService from "../../services/database";
 import WeatherMapApi from "../../services/WeatherMapAPI";
 
@@ -71,12 +71,12 @@ const NewRoamScreen = ({ navigation }) => {
           .map((data) => data.hourly.map((h) => h.temp))
           .reduce((arr, e) => arr.concat(e));
 
-        const rainArr = weatherData
-          .map((data) => data.hourly.map((h) => h.rain))
-          .reduce((arr, e) => arr.concat(e));
-
         const cloudsArr = weatherData
           .map((data) => data.hourly.map((h) => h.clouds))
+          .reduce((arr, e) => arr.concat(e));
+
+        const rainArr = weatherData
+          .map((data) => data.hourly.map((h) => h.rain))
           .reduce((arr, e) => arr.concat(e));
 
         setAvgtemp((tempsArr.reduce((sum, value) => sum + value, 0) / tempsArr.length).toFixed(1));
@@ -113,6 +113,7 @@ const NewRoamScreen = ({ navigation }) => {
 
     const newRoams = await dbService.insertInto(database, newRoam);
     dispatch(setRoams(newRoams));
+    dispatch(setNotification({ show: true, content: "New Roam added." }));
     navigation.navigate("Map");
   };
 

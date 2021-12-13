@@ -9,6 +9,10 @@ const initialState = {
     longitudeDelta: 0.022,
   },
   mapSnap: null,
+  notification: {
+    show: false,
+    content: null,
+  },
 };
 
 export const AppContext = createContext([initialState, () => initialState]);
@@ -32,6 +36,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         mapSnap: action.payload,
+      };
+    case "SET_NOTIFICATION":
+      return {
+        ...state,
+        notification: action.payload,
       };
     default:
       return state;
@@ -57,6 +66,13 @@ export const setMapSnap = (snap) => {
   return {
     type: "SET_MAP_SNAP",
     payload: snap,
+  };
+};
+
+export const setNotification = (notification) => {
+  return {
+    type: "SET_NOTIFICATION",
+    payload: notification,
   };
 };
 

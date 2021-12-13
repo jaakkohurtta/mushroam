@@ -3,24 +3,15 @@ import { ImageBackground, View, Text, StyleSheet } from "react-native";
 import { Button, Caption, Headline, Card, Subheading, Title, Paragraph } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { useStateValue, setRoams } from "../context/AppState";
-import dbService from "../services/database";
 import {
   getHaulDescription,
   getCloudIconName,
   getTempIconName,
   getRainIconName,
 } from "../utils/descriptions";
-import theme from "../theme";
 
 const RoamDetails = ({ route, _ }) => {
-  const [{ database }, dispatch] = useStateValue();
   const { roam } = route.params;
-
-  const handleDeleteRoam = async () => {
-    const updatedRoams = await dbService.deleteById(database, roam.id);
-    dispatch(setRoams(updatedRoams));
-  };
 
   const cloudsIconName = getCloudIconName(roam.clouds);
   const tempIconName = getTempIconName(roam.avgtemp);
@@ -73,9 +64,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: 8,
     width: "100%",
-    height: "75%",
-    borderTopColor: theme.colors.placeholder,
-    borderTopWidth: 1,
+    height: "100%",
   },
   image: {
     flex: 1,

@@ -4,8 +4,6 @@ import { Avatar, Card, IconButton } from "react-native-paper";
 
 import { getHaulDescription } from "../utils/descriptions";
 
-import theme from "../theme";
-
 const RoamCard = ({ roam, navigation }) => {
   const haulDescription = getHaulDescription(roam.haul);
 

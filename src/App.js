@@ -12,6 +12,7 @@ import dbService from "./services/database";
 import Header from "./components/Header";
 import MapScreen from "./components/MapScreen";
 import MyRoamsScreen from "./components/MyRoamsScreen";
+import Notification from "./components/Notification";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +48,7 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
+        <Notification />
         <Header title="Mushroam" resetDatabase={resetDatabase} />
         <Tab.Navigator
           screenOptions={({ route }) => ({

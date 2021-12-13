@@ -35,10 +35,10 @@ export const getCloudIconName = (clouds) => {
 export const getTempIconName = (avgtemp) => {
   let icon = "";
 
-  if (avgtemp > 0) {
-    icon = "thermometer-plus";
-  } else if (avgtemp < 0) {
-    icon = "thermometer-minus";
+  if (avgtemp > 15) {
+    icon = "thermometer-high";
+  } else if (avgtemp > 5) {
+    icon = "thermometer";
   } else {
     icon = "thermometer-low";
   }
