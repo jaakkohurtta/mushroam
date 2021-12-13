@@ -37,8 +37,20 @@ const selectAll = async (database) => {
 };
 
 const insertInto = async (database, roam) => {
-  const { title, timestamp, date, mushroom, vibes, latitude, longitude, image, rainfall, avgtemp } =
-    roam;
+  const {
+    title,
+    timestamp,
+    date,
+    mushroom,
+    haul,
+    vibes,
+    latitude,
+    longitude,
+    image,
+    rainfall,
+    avgtemp,
+    clouds,
+  } = roam;
 
   return new Promise((resolve) => {
     database.transaction(
@@ -48,12 +60,14 @@ const insertInto = async (database, roam) => {
           timestamp,
           date,
           mushroom,
+          haul,
           vibes,
           latitude,
           longitude,
           image,
           rainfall,
           avgtemp,
+          clouds,
         ]);
       },
       null,

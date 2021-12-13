@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Image,
   Keyboard,
-  KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -25,16 +24,25 @@ import WeatherMapApi from "../../services/WeatherMapAPI";
 
 import theme from "../../theme";
 
+const mushrooms = [
+  { name: "Generic Mushroom", colorId: "generic" },
+  { name: "Funnel", colorId: "funnel" },
+  { name: "Milk Cap", colorId: "milkcap" },
+  { name: "Porcini", colorId: "porcini" },
+  { name: "Sheep Polypore", colorId: "sheeppolypore" },
+];
+
 const NewRoamScreen = ({ navigation }) => {
   const [{ mapSnap, location, database }, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(true);
 
   const [title, setTitle] = useState("");
   const [haul, setHaul] = useState("");
-  const [mushroom, setMushroom] = useState("Generic Mushroom");
+  const [mushroom, setMushroom] = useState(mushrooms[0]);
   const [vibes, setVibes] = useState("");
   const [rainfall, setRainfall] = useState(null);
   const [avgtemp, setAvgtemp] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [clouds, setClouds] = useState(null);
 
   const today = new Date();
   const date = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
@@ -67,31 +75,40 @@ const NewRoamScreen = ({ navigation }) => {
           .map((data) => data.hourly.map((h) => h.rain))
           .reduce((arr, e) => arr.concat(e));
 
+        const cloudsArr = weatherData
+          .map((data) => data.hourly.map((h) => h.clouds))
+          .reduce((arr, e) => arr.concat(e));
+
         setAvgtemp((tempsArr.reduce((sum, value) => sum + value, 0) / tempsArr.length).toFixed(1));
+
+        setClouds((cloudsArr.reduce((sum, value) => sum + value, 0) / cloudsArr.length).toFixed(1));
 
         const rain = rainArr.reduce((sum, value) => sum + value, 0);
         setRainfall(!isNaN(rain) ? rain.toFixed(1) : -1);
 
         setLoading(false);
       } catch (e) {
-        console.error(e);
+        // console.error(e);
         setLoading(false);
       }
     })();
   }, []);
 
   const addRoam = async () => {
+    // !! HOX: JÄRJESTYS TÄRKEÄ SQL QUERYÄ VARTEN !!
     const newRoam = {
       title,
       timestamp: Math.floor(Date.now() / 1000),
       date,
-      mushroom,
+      mushroom: mushroom.name,
+      haul: haul === "" ? 0 : parseFloat(haul),
       vibes,
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       image: mapSnap,
       rainfall,
       avgtemp,
+      clouds,
     };
 
     const newRoams = await dbService.insertInto(database, newRoam);
@@ -129,9 +146,10 @@ const NewRoamScreen = ({ navigation }) => {
               <Subheading>Loading weather..</Subheading>
             ) : (
               <>
-                {rainfall && avgtemp ? (
+                {rainfall && avgtemp && clouds ? (
                   <>
                     <Subheading>Weather from last 5 days</Subheading>
+                    <Text>Cloud coverage: {clouds} &#37;</Text>
                     <Text>
                       {rainfall === -1
                         ? "No rain data available for this location"
@@ -160,9 +178,9 @@ const NewRoamScreen = ({ navigation }) => {
                 style={{ color: theme.colors.placeholder }}
                 selectedValue={mushroom}
                 onValueChange={(itemValue, itemIndex) => setMushroom(itemValue)}>
-                <Picker.Item label="Generic Mushroom" value="Generic Mushroom" />
-                <Picker.Item label="Funnel" value="Funnel" />
-                <Picker.Item label="Milk cap" value="Milk cap" />
+                {mushrooms.map((mushroom) => (
+                  <Picker.Item key={mushroom.name} label={mushroom.name} value={mushroom} />
+                ))}
               </Picker>
             </View>
             <TextInput

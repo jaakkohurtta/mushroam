@@ -2,9 +2,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Avatar, Card, IconButton } from "react-native-paper";
 
+import { getHaulDescription } from "../utils/descriptions";
+
 import theme from "../theme";
 
 const RoamCard = ({ roam, navigation }) => {
+  const haulDescription = getHaulDescription(roam.haul);
+
   return (
     <Card style={styles.card}>
       <Card.Title
@@ -18,7 +22,7 @@ const RoamCard = ({ roam, navigation }) => {
           />
         )}
         title={roam.title}
-        subtitle={`half a bucket of ${roam.mushroom}s on ${roam.date}`}
+        subtitle={`${haulDescription} ${roam.mushroom}s on ${roam.date}`}
       />
     </Card>
   );

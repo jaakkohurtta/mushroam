@@ -1,4 +1,5 @@
 import React from "react";
+import { IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import RoamDetails from "../RoamDetails";
@@ -8,7 +9,12 @@ const ListStack = createStackNavigator();
 
 const MyRoamsScreen = () => {
   return (
-    <ListStack.Navigator screenOptions={() => ({})}>
+    <ListStack.Navigator
+      screenOptions={({ route }) => ({
+        headerRight: () => (
+          <IconButton icon="delete" onPress={() => console.log(route.params.roam.id)} />
+        ),
+      })}>
       <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
       <ListStack.Screen
         name="Roam Details"
