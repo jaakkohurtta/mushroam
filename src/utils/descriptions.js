@@ -2,7 +2,7 @@ export const getHaulDescription = (haul) => {
   let desc = "";
 
   if (haul === 0) {
-    desc = "";
+    desc = "Some";
   } else if (haul < 0.2) {
     desc = "a handful of";
   } else if (haul < 0.4) {

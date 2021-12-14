@@ -9,6 +9,7 @@ import {
   getTempIconName,
   getRainIconName,
 } from "../utils/descriptions";
+import theme from "../theme";
 
 const RoamDetails = ({ route, _ }) => {
   const { roam } = route.params;
@@ -20,29 +21,29 @@ const RoamDetails = ({ route, _ }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        <Paragraph style={{ fontFamily: "Quicksand_400Regular" }}>
+          On {roam.date} you harvested {haulDescription} {roam.mushroom}s
+        </Paragraph>
+        <Caption style={{ fontFamily: "Quicksand_300Light" }}>{roam.vibes}</Caption>
+      </View>
       <View style={styles.imageContainer}>
         <ImageBackground
           style={styles.image}
           resizeMode="cover"
           source={{ uri: `data:image/png;base64,${roam.image}` }}>
-          <View style={styles.contentContainer}>
-            <Paragraph>
-              On {roam.date} you harvested {haulDescription} {roam.mushroom}s
-            </Paragraph>
-            <Caption>{roam.vibes}</Caption>
-          </View>
           <View style={styles.weatherContainer}>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={tempIconName} size={48} />
-              <Subheading>{roam.avgtemp} &#8451;</Subheading>
+              <Subheading style={styles.weatherLabel}>{roam.avgtemp} &#8451;</Subheading>
             </View>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={cloudsIconName} size={48} />
-              <Subheading>{roam.clouds} &#37;</Subheading>
+              <Subheading style={styles.weatherLabel}>{roam.clouds} &#37;</Subheading>
             </View>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={rainIconName} size={48} />
-              <Subheading>
+              <Subheading style={styles.weatherLabel}>
                 {roam.rainfall === -1 ? "No rain data." : `${roam.rainfall} mm`}
               </Subheading>
             </View>
@@ -62,23 +63,25 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    marginTop: 8,
     width: "100%",
     height: "100%",
   },
   image: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
   },
   weatherContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#ffffffa0",
+    backgroundColor: `${theme.colors.backdrop}d0`,
     padding: 16,
   },
   weatherItem: {
     flex: 1,
     alignItems: "center",
+  },
+  weatherLabel: {
+    fontFamily: "Quicksand_400Regular",
   },
   contentContainer: {
     width: "100%",
@@ -86,7 +89,7 @@ export const styles = StyleSheet.create({
     paddingRight: 48,
     paddingTop: 16,
     paddingBottom: 16,
-    backgroundColor: "#ffffffa0",
+    backgroundColor: `${theme.colors.backdrop}d0`,
   },
   vibes: {},
 });

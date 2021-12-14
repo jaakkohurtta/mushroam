@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -8,6 +8,8 @@ import dbService from "../../services/database";
 
 import RoamDetails from "../RoamDetails";
 import RoamsList from "../RoamsList";
+
+import theme from "../../theme";
 
 const ListStack = createStackNavigator();
 
@@ -42,11 +44,23 @@ const MyRoamsScreen = ({ navigation }) => {
       <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
       <ListStack.Screen
         name="Roam Details"
+        options={({ route }) => ({
+          title: route.params.roam.title,
+          headerTitleStyle: { fontFamily: "Quicksand_600SemiBold" },
+          headerStyle: styles.header,
+        })}
         component={RoamDetails}
-        options={({ route }) => ({ title: route.params.roam.title })}
       />
     </ListStack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: theme.colors.backdrop,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.background,
+  },
+});
 
 export default MyRoamsScreen;

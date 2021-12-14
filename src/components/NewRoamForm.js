@@ -18,11 +18,11 @@ import {
 } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 
-import { setRoams, setMapRoams, setNotification, useStateValue } from "../../context/AppState";
-import dbService from "../../services/database";
-import WeatherMapApi from "../../services/WeatherMapAPI";
+import { setRoams, setMapRoams, setNotification, useStateValue } from "../context/AppState";
+import dbService from "../services/database";
+import WeatherMapApi from "../services/WeatherMapAPI";
 
-import theme from "../../theme";
+import theme from "../theme";
 
 const mushrooms = [
   { name: "Generic Mushroom", colorId: "generic" },
@@ -38,7 +38,7 @@ const mushrooms = [
   { name: "Woolly Milkcap", colorId: "woollymilkcap" }, // karvarousku
 ];
 
-const NewRoamScreen = ({ navigation }) => {
+const NewRoamForm = ({ navigation }) => {
   const [{ mapSnap, location, database }, dispatch] = useStateValue();
   const [loading, setLoading] = useState(true);
 
@@ -103,8 +103,6 @@ const NewRoamScreen = ({ navigation }) => {
   }, []);
 
   const addRoam = async () => {
-    console.log(mushroom.colorId);
-
     // !! HOX: JÄRJESTYS TÄRKEÄ SQL QUERYÄ VARTEN !!
     const newRoam = {
       title,
@@ -194,7 +192,7 @@ const NewRoamScreen = ({ navigation }) => {
             </HelperText>
             <View style={styles.picker}>
               <Picker
-                style={{ color: theme.colors.placeholder }}
+                style={{ color: theme.colors.text }}
                 selectedValue={mushroom}
                 onValueChange={(itemValue, itemIndex) => setMushroom(itemValue)}>
                 {mushrooms.map((mushroom) => (
@@ -214,7 +212,7 @@ const NewRoamScreen = ({ navigation }) => {
               mode="contained"
               dark={true}
               icon="content-save-outline"
-              style={styles.saveButton}
+              style={styles.button}
               onPress={() => addRoam()}
               disabled={title === "" ? true : false}>
               Save
@@ -230,6 +228,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 16,
+    backgroundColor: theme.colors.backdrop,
   },
   content: {
     flexDirection: "column",
@@ -241,32 +240,35 @@ export const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: theme.colors.background,
     alignSelf: "stretch",
-    borderTopColor: theme.colors.placeholder,
-    borderBottomColor: theme.colors.placeholder,
+    borderTopColor: theme.colors.text,
+    borderBottomColor: theme.colors.text,
     borderTopWidth: 1,
     borderBottomWidth: 1,
+  },
+  quicksand: {
+    fontFamily: "PermanentMarker_400Regular",
   },
   image: {
     width: 256,
     height: 256,
     borderRadius: 128,
-    borderColor: theme.colors.background,
-    borderWidth: 1,
+    borderColor: theme.colors.text,
+    borderWidth: 2,
   },
   inputGroup: {
     alignSelf: "stretch",
     padding: 16,
   },
   picker: {
-    borderColor: theme.colors.placeholder,
+    borderColor: theme.colors.text,
     borderWidth: 1,
     borderRadius: 4,
     marginTop: 6,
     backgroundColor: theme.colors.background,
   },
-  saveButton: {
+  button: {
     marginTop: 6,
   },
 });
 
-export default NewRoamScreen;
+export default NewRoamForm;

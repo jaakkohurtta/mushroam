@@ -43,7 +43,7 @@ const Mapper = ({ navigation }) => {
                 latitudeDelta: location.latitudeDelta,
                 longitudeDelta: location.longitudeDelta,
               }}
-              mapType="terrain"
+              customMapStyle={theme.mapStyle}
               onPress={() => handleMapPress()}>
               {mapRoams && (
                 <>
@@ -64,7 +64,7 @@ const Mapper = ({ navigation }) => {
                 }}
                 draggable
                 onDragEnd={(e) => handleDragEnd(e.nativeEvent.coordinate)}
-                pinColor={theme.colors.primary}
+                pinColor={theme.colors.marker}
               />
             </MapView>
           </ViewShot>

@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   snack: {
     marginBottom: 70,
     backgroundColor: "#000000d0",
+    fontFamily: "Quicksand_300Light",
   },
 });
 

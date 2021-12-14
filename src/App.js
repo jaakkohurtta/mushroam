@@ -2,6 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import * as Location from "expo-location";
 import { Alert } from "react-native";
+import { useFonts, PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
+import {
+  Quicksand_300Light,
+  Quicksand_400Regular,
+  Quicksand_500Medium,
+  Quicksand_600SemiBold,
+  Quicksand_700Bold,
+} from "@expo-google-fonts/quicksand";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -13,11 +21,20 @@ import Header from "./components/Header";
 import MapScreen from "./components/MapScreen";
 import MyRoamsScreen from "./components/MyRoamsScreen";
 import Notification from "./components/Notification";
+import theme from "./theme";
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   const [{ database }, dispatch] = useStateValue();
+  let [fontsLoaded] = useFonts({
+    PermanentMarker_400Regular,
+    Quicksand_300Light,
+    Quicksand_400Regular,
+    Quicksand_500Medium,
+    Quicksand_600SemiBold,
+    Quicksand_700Bold,
+  });
 
   useEffect(() => {
     dbService.init(database).then((response) => dispatch(setRoams(response)));
@@ -47,36 +64,36 @@ const App = () => {
 
   return (
     <>
-      <NavigationContainer>
-        <Notification />
-        <Header title="Mushroam" resetDatabase={resetDatabase} />
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarStyle: {
-              height: 64,
-            },
-            tabBarIcon: ({ focused, color = "#000000", size = 48 }) => {
-              let iconName;
-              if (route.name === "Map Screen") {
-                iconName = focused ? "map-marker" : "map-marker-outline";
-              } else if (route.name === "My Roams Screen") {
-                iconName = focused ? "view-list" : "view-list-outline";
-              }
-              return <MaterialCommunityIcons name={iconName} color="#000000" size={size} />;
-            },
-            tabBarShowLabel: false,
-          })}
-          initialRouteName="My Roams Screen">
-          <Tab.Screen options={{ headerShown: false }} name="Map Screen" component={MapScreen} />
-          <Tab.Screen
-            options={{
-              headerShown: false,
-            }}
-            name="My Roams Screen"
-            component={MyRoamsScreen}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+      {fontsLoaded && (
+        <>
+          <NavigationContainer>
+            <Notification />
+            <Header title="Mushroam" resetDatabase={resetDatabase} />
+            <Tab.Navigator
+              screenOptions={({ route }) => ({
+                tabBarStyle: {
+                  height: 64,
+                  backgroundColor: theme.colors.background,
+                },
+                headerShown: false,
+                tabBarIcon: ({ focused }) => {
+                  let iconName;
+                  if (route.name === "Map Screen") {
+                    iconName = focused ? "map-marker" : "map-marker-outline";
+                  } else if (route.name === "My Roams Screen") {
+                    iconName = focused ? "view-list" : "view-list-outline";
+                  }
+                  return <MaterialCommunityIcons name={iconName} size={32} />;
+                },
+                tabBarShowLabel: false,
+              })}
+              initialRouteName="My Roams Screen">
+              <Tab.Screen name="Map Screen" component={MapScreen} />
+              <Tab.Screen name="My Roams Screen" component={MyRoamsScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </>
+      )}
     </>
   );
 };
