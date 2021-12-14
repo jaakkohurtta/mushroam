@@ -18,7 +18,7 @@ import {
 } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 
-import { setRoams, setNotification, useStateValue } from "../../context/AppState";
+import { setRoams, setMapRoams, setNotification, useStateValue } from "../../context/AppState";
 import dbService from "../../services/database";
 import WeatherMapApi from "../../services/WeatherMapAPI";
 
@@ -26,10 +26,16 @@ import theme from "../../theme";
 
 const mushrooms = [
   { name: "Generic Mushroom", colorId: "generic" },
-  { name: "Funnel", colorId: "funnel" },
-  { name: "Milk Cap", colorId: "milkcap" },
-  { name: "Porcini", colorId: "porcini" },
-  { name: "Sheep Polypore", colorId: "sheeppolypore" },
+  { name: "Black Trumpet", colorId: "blacktrumpet" }, // musta torvisieni
+  { name: "Chantarelle", colorId: "chantarelle" }, // kanttarelli
+  { name: "Funnel", colorId: "funnel" }, // suppis
+  { name: "Rufous Milkcap", colorId: "rufousmilkcap" }, // kangasrousku
+  { name: "Porcini", colorId: "porcini" }, // herkkutatti
+  { name: "Sheep Polypore", colorId: "sheeppolypore" }, // lampaankääpä
+  { name: "Shiitake", colorId: "shiitake" }, // siitake
+  { name: "Slimy Spike-cap", colorId: "slimyspikecap" }, // limanuljaska
+  { name: "Velvet Bolete", colorId: "velvetboletet" }, // kangastatti
+  { name: "Woolly Milkcap", colorId: "woollymilkcap" }, // karvarousku
 ];
 
 const NewRoamScreen = ({ navigation }) => {
@@ -48,6 +54,8 @@ const NewRoamScreen = ({ navigation }) => {
   const date = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
 
   useEffect(() => {
+    dispatch(setMapRoams(true));
+
     (async () => {
       const lat = location.coords.latitude.toFixed(2);
       const lon = location.coords.longitude.toFixed(2);
@@ -95,6 +103,8 @@ const NewRoamScreen = ({ navigation }) => {
   }, []);
 
   const addRoam = async () => {
+    console.log(mushroom.colorId);
+
     // !! HOX: JÄRJESTYS TÄRKEÄ SQL QUERYÄ VARTEN !!
     const newRoam = {
       title,
@@ -109,6 +119,7 @@ const NewRoamScreen = ({ navigation }) => {
       rainfall,
       avgtemp,
       clouds,
+      colorid: mushroom.colorId,
     };
 
     const newRoams = await dbService.insertInto(database, newRoam);
@@ -119,6 +130,10 @@ const NewRoamScreen = ({ navigation }) => {
 
   const titleErrors = () => {
     return title === "" ? true : false;
+  };
+
+  const haulErrors = () => {
+    return haul === "" ? true : false;
   };
 
   return (
@@ -149,14 +164,14 @@ const NewRoamScreen = ({ navigation }) => {
               <>
                 {rainfall && avgtemp && clouds ? (
                   <>
-                    <Subheading>Weather from last 5 days</Subheading>
+                    <Subheading>Weather from the past 5 days</Subheading>
+                    <Text>Average temperature: {avgtemp} celcius</Text>
                     <Text>Cloud coverage: {clouds} &#37;</Text>
                     <Text>
                       {rainfall === -1
                         ? "No rain data available for this location"
                         : `Cumulative rain fall: ${rainfall} mm`}
                     </Text>
-                    <Text>Average temperature: {avgtemp} celcius</Text>
                   </>
                 ) : (
                   <Subheading>No weather data available.</Subheading>
@@ -172,8 +187,11 @@ const NewRoamScreen = ({ navigation }) => {
               keyboardType="number-pad"
               value={haul}
               onChangeText={(haul) => setHaul(haul)}
-              right={<TextInput.Affix text="buckets" />}
+              right={<TextInput.Affix text="baskets" />}
             />
+            <HelperText type="info" visible={haulErrors()}>
+              Approximate your harvest volume in baskets, 0.5 for half a basket.
+            </HelperText>
             <View style={styles.picker}>
               <Picker
                 style={{ color: theme.colors.placeholder }}

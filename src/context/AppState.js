@@ -9,6 +9,7 @@ const initialState = {
     longitudeDelta: 0.022,
   },
   mapSnap: null,
+  mapRoams: true,
   notification: {
     show: false,
     content: null,
@@ -36,6 +37,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         mapSnap: action.payload,
+      };
+    case "SET_MAP_ROAMS":
+      return {
+        ...state,
+        mapRoams: action.payload,
       };
     case "SET_NOTIFICATION":
       return {
@@ -66,6 +72,13 @@ export const setMapSnap = (snap) => {
   return {
     type: "SET_MAP_SNAP",
     payload: snap,
+  };
+};
+
+export const setMapRoams = (flag) => {
+  return {
+    type: "SET_MAP_ROAMS",
+    payload: flag,
   };
 };
 

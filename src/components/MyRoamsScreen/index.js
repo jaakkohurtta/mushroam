@@ -37,7 +37,8 @@ const MyRoamsScreen = ({ navigation }) => {
         headerRight: () => (
           <IconButton icon="delete" onPress={() => handleDeleteRoam(route.params.roam.id)} />
         ),
-      })}>
+      })}
+      initialRouteName="My Roams">
       <ListStack.Screen name="My Roams" component={RoamsList} options={{ headerShown: false }} />
       <ListStack.Screen
         name="Roam Details"

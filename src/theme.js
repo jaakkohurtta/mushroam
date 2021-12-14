@@ -15,6 +15,19 @@ const theme = {
     disabled: "#a2a2a4",
     placeholder: "gray",
   },
+  mushrooms: {
+    generic: "#FF0059",
+    blacktrumpet: "#0022FF",
+    chantarelle: "#FFC300",
+    funnel: "#FF8000",
+    porcini: "#FF4D00",
+    rufousmilkcap: "#963C36", //
+    shiitake: "#00D0FF",
+    sheeppolypore: "#00FFAA",
+    slimyspikecap: "#B28377",
+    velvetbolete: "#9E6236",
+    woollymilkcap: "#B5947D",
+  },
 };
 
 export default theme;

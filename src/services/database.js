@@ -50,6 +50,7 @@ const insertInto = async (database, roam) => {
     rainfall,
     avgtemp,
     clouds,
+    colorid,
   } = roam;
 
   return new Promise((resolve) => {
@@ -68,6 +69,7 @@ const insertInto = async (database, roam) => {
           rainfall,
           avgtemp,
           clouds,
+          colorid,
         ]);
       },
       null,

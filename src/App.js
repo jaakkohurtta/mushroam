@@ -65,7 +65,8 @@ const App = () => {
               return <MaterialCommunityIcons name={iconName} color="#000000" size={size} />;
             },
             tabBarShowLabel: false,
-          })}>
+          })}
+          initialRouteName="My Roams Screen">
           <Tab.Screen options={{ headerShown: false }} name="Map Screen" component={MapScreen} />
           <Tab.Screen
             options={{
