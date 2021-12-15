@@ -241,12 +241,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 16,
-    backgroundColor: theme.colors.backdrop,
+    backgroundColor: theme.colors.surface,
   },
   noLocation: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: theme.colors.backdrop,
+    backgroundColor: theme.colors.surface,
   },
   content: {
     flexDirection: "column",

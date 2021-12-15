@@ -34,7 +34,7 @@ const SettingsModal = ({ showSettings, setShowSettings }) => {
     <Modal visible={showSettings} onDismiss={hideModal} contentContainerStyle={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Mushroam</Text>
-        <Subheading>version 0.1.0 / 17.12.2021</Subheading>
+        <Subheading>version 0.1.0 / 15.12.2021</Subheading>
         <Text>Simple app to document yours mushrooming in the wild.</Text>
       </View>
       <View style={styles.content}>

@@ -83,7 +83,7 @@ const Mapper = ({ navigation }) => {
 export const styles = StyleSheet.create({
   noLocation: {
     flex: 1,
-    backgroundColor: theme.colors.backdrop,
+    backgroundColor: theme.colors.surface,
     alignItems: "center",
     justifyContent: "center",
   },

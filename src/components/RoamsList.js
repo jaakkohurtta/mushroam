@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { Divider } from "react-native-paper";
+import { Divider, Text } from "react-native-paper";
 
 import RoamCard from "./RoamCard";
 
@@ -11,15 +11,28 @@ const RoamsList = ({ navigation }) => {
   const [{ roams }, _] = useStateValue();
 
   return (
-    <View style={styles.container}>
-      <Divider style={{ height: 2 }} />
-      <FlatList
-        data={roams}
-        renderItem={({ item }) => <RoamCard key={item.id} roam={item} navigation={navigation} />}
-        ItemSeparatorComponent={() => <Divider style={{ height: 2 }} />}
-      />
-      <Divider style={{ height: 2 }} />
-    </View>
+    <>
+      {roams.length > 0 ? (
+        <View style={styles.container}>
+          <Divider style={{ height: 2 }} />
+          <FlatList
+            data={roams}
+            renderItem={({ item }) => (
+              <RoamCard key={item.id} roam={item} navigation={navigation} />
+            )}
+            ItemSeparatorComponent={() => <Divider style={{ height: 2 }} />}
+          />
+          <Divider style={{ height: 2 }} />
+        </View>
+      ) : (
+        <View style={styles.noContent}>
+          <Text>
+            You have not Roamed yet. Roams may be added via the map view by simply pressing the map.
+          </Text>
+          <Text>The map view can be found at the bottom bar.</Text>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -28,8 +41,13 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     justifyContent: "center",
   },
-  list: {
-    marginTop: 4,
+  noContent: {
+    flex: 1,
+    backgroundColor: theme.colors.surface,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingLeft: 32,
+    paddingRight: 32,
   },
 });
 
