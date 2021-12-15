@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mushroam",
+    "name": "Mushroam",
     "slug": "mushroam",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -27,6 +25,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "App to document your mushrooming in the wild.",
+    "githubUrl": "https://github.com/jaakkohurtta/mushroam"
   }
 }
