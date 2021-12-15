@@ -15,7 +15,7 @@ const init = async (database) => {
   });
 };
 
-const reset = (database) => {
+const dropTable = (database) => {
   database.transaction(
     (tx) => {
       tx.executeSql(DROP_TABLE);
@@ -98,7 +98,7 @@ const deleteById = async (database, id) => {
 
 const dbService = {
   init,
-  reset,
+  dropTable,
   selectAll,
   insertInto,
   deleteById,

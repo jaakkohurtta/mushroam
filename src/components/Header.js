@@ -4,7 +4,7 @@ import { Title, IconButton } from "react-native-paper";
 
 import theme from "../theme";
 
-const Header = ({ title, resetDatabase }) => {
+const Header = ({ title, setShowSettings }) => {
   return (
     <View style={styles.container}>
       <Title style={{ fontFamily: "PermanentMarker_400Regular", fontSize: 32 }}>{title}</Title>
@@ -12,7 +12,7 @@ const Header = ({ title, resetDatabase }) => {
         color={theme.colors.text}
         icon="mushroom"
         size={24}
-        onPress={() => resetDatabase()}
+        onPress={() => setShowSettings(true)}
       />
     </View>
   );

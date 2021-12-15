@@ -135,92 +135,105 @@ const NewRoamForm = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.content}>
-          <View style={styles.inputGroup}>
-            <TextInput
-              label="Title for your Roam"
-              mode="outlined"
-              value={title}
-              onFocus={() => (title === null ? setTitle("") : null)}
-              onChangeText={(title) => setTitle(title)}
-            />
-            <HelperText type="info" visible={titleErrors()}>
-              Title is required.
-            </HelperText>
-          </View>
-          <Image style={styles.image} source={{ uri: `data:image/png;base64,${mapSnap}` }} />
-          <Title>{date}</Title>
-          <Subheading>
-            {location.coords.latitude} / {location.coords.longitude}
-          </Subheading>
-          <View style={styles.weather}>
-            {loading ? (
-              <Subheading>Loading weather..</Subheading>
-            ) : (
-              <>
-                {rainfall && avgtemp && clouds ? (
-                  <>
-                    <Subheading>Weather from the past 5 days</Subheading>
-                    <Text>Average temperature: {avgtemp} celcius</Text>
-                    <Text>Cloud coverage: {clouds} &#37;</Text>
-                    <Text>
-                      {rainfall === -1
-                        ? "No rain data available for this location"
-                        : `Cumulative rain fall: ${rainfall} mm`}
-                    </Text>
-                  </>
+    <>
+      {location.coords ? (
+        <ScrollView style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.content}>
+              <View style={styles.inputGroup}>
+                <TextInput
+                  label="Title for your Roam"
+                  mode="outlined"
+                  value={title}
+                  activeOutlineColor={theme.colors.primary}
+                  onFocus={() => (title === null ? setTitle("") : null)}
+                  onChangeText={(title) => setTitle(title)}
+                />
+                <HelperText type="info" visible={titleErrors()}>
+                  Title is required.
+                </HelperText>
+              </View>
+              <Image style={styles.image} source={{ uri: `data:image/png;base64,${mapSnap}` }} />
+              <Title>{date}</Title>
+              <Subheading>
+                {location.coords.latitude} / {location.coords.longitude}
+              </Subheading>
+              <View style={styles.weather}>
+                {loading ? (
+                  <Subheading>Loading weather..</Subheading>
                 ) : (
-                  <Subheading>No weather data available.</Subheading>
+                  <>
+                    {rainfall && avgtemp && clouds ? (
+                      <>
+                        <Subheading>Weather from the past 5 days</Subheading>
+                        <Text>Average temperature: {avgtemp} celcius</Text>
+                        <Text>Cloud coverage: {clouds} &#37;</Text>
+                        <Text>
+                          {rainfall === -1
+                            ? "No rain data available for this location"
+                            : `Cumulative rain fall: ${rainfall} mm`}
+                        </Text>
+                      </>
+                    ) : (
+                      <Subheading>No weather data available.</Subheading>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </View>
-          <Divider />
-          <View style={styles.inputGroup}>
-            <TextInput
-              label="Haul"
-              mode="outlined"
-              keyboardType="number-pad"
-              value={haul}
-              onChangeText={(haul) => setHaul(haul)}
-              right={<TextInput.Affix text="baskets" />}
-            />
-            <HelperText type="info" visible={haulErrors()}>
-              Approximate your harvest volume in baskets, 0.5 for half a basket.
-            </HelperText>
-            <View style={styles.picker}>
-              <Picker
-                style={{ color: theme.colors.text }}
-                selectedValue={mushroom}
-                onValueChange={(itemValue, itemIndex) => setMushroom(itemValue)}>
-                {mushrooms.map((mushroom) => (
-                  <Picker.Item key={mushroom.name} label={mushroom.name} value={mushroom} />
-                ))}
-              </Picker>
+              </View>
+              <Divider />
+              <View style={styles.inputGroup}>
+                <TextInput
+                  label="Haul"
+                  mode="outlined"
+                  keyboardType="number-pad"
+                  value={haul}
+                  activeOutlineColor={theme.colors.primary}
+                  onChangeText={(haul) => setHaul(haul)}
+                  right={<TextInput.Affix text="baskets" />}
+                />
+                <HelperText type="info" visible={haulErrors()}>
+                  Approximate your harvest volume in baskets, 0.5 for half a basket.
+                </HelperText>
+                <View style={styles.picker}>
+                  <Picker
+                    style={{ color: theme.colors.text }}
+                    selectedValue={mushroom}
+                    onValueChange={(itemValue, itemIndex) => setMushroom(itemValue)}>
+                    {mushrooms.map((mushroom) => (
+                      <Picker.Item key={mushroom.name} label={mushroom.name} value={mushroom} />
+                    ))}
+                  </Picker>
+                </View>
+                <TextInput
+                  label="Vibes"
+                  mode="outlined"
+                  multiline={true}
+                  numberOfLines={5}
+                  value={vibes}
+                  activeOutlineColor={theme.colors.primary}
+                  onChangeText={(vibes) => setVibes(vibes)}
+                />
+                <Button
+                  mode="contained"
+                  icon="content-save-outline"
+                  color={theme.colors.primary}
+                  style={styles.button}
+                  onPress={() => addRoam()}
+                  disabled={title === "" ? true : false}>
+                  Save
+                </Button>
+              </View>
             </View>
-            <TextInput
-              label="Vibes"
-              mode="outlined"
-              multiline={true}
-              numberOfLines={5}
-              value={vibes}
-              onChangeText={(vibes) => setVibes(vibes)}
-            />
-            <Button
-              mode="contained"
-              dark={true}
-              icon="content-save-outline"
-              style={styles.button}
-              onPress={() => addRoam()}
-              disabled={title === "" ? true : false}>
-              Save
-            </Button>
-          </View>
+          </TouchableWithoutFeedback>
+        </ScrollView>
+      ) : (
+        <View style={styles.noLocation}>
+          <Text>
+            No permission to use device location. Grant permission in the device settings.
+          </Text>
         </View>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+      )}
+    </>
   );
 };
 
@@ -228,6 +241,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 16,
+    backgroundColor: theme.colors.backdrop,
+  },
+  noLocation: {
+    flex: 1,
+    justifyContent: "center",
     backgroundColor: theme.colors.backdrop,
   },
   content: {
@@ -261,10 +279,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     marginTop: 6,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.backdrop,
   },
   button: {
     marginTop: 6,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

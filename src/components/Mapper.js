@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Paragraph } from "react-native-paper";
+import React, { useRef } from "react";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 import MapView, { Marker } from "react-native-maps";
 import ViewShot from "react-native-view-shot";
 
@@ -70,23 +70,22 @@ const Mapper = ({ navigation }) => {
           </ViewShot>
         </>
       ) : (
-        <Paragraph>
-          No permission to use device location. Grant permission in the device settings.
-        </Paragraph>
+        <View style={styles.noLocation}>
+          <Text>
+            No permission to use device location. Grant permission in the device settings.
+          </Text>
+        </View>
       )}
     </>
   );
 };
 
 export const styles = StyleSheet.create({
-  container: {
+  noLocation: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.colors.backdrop,
     alignItems: "center",
     justifyContent: "center",
-  },
-  textField: {
-    marginBottom: 16,
   },
 });
 
