@@ -21,9 +21,9 @@ const RoamCard = ({ roam, navigation }) => {
           <Image style={styles.image} source={{ uri: `data:image/png;base64,${roam.image}` }} />
         </View>
         <View style={styles.center}>
-          <Title style={{ fontFamily: "Quicksand_600SemiBold" }}>{roam.title}</Title>
-          <Subheading style={{ fontFamily: "Quicksand_500Medium" }}>{roam.date}</Subheading>
-          <Text style={{ fontFamily: "Quicksand_400Regular" }}>
+          <Title>{roam.title}</Title>
+          <Subheading>{roam.date}</Subheading>
+          <Text>
             {haulDescription} {roam.mushroom}s
           </Text>
         </View>

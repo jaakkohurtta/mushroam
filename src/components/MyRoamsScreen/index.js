@@ -46,7 +46,6 @@ const MyRoamsScreen = ({ navigation }) => {
         name="Roam Details"
         options={({ route }) => ({
           title: route.params.roam.title,
-          headerTitleStyle: { fontFamily: "Quicksand_600SemiBold" },
           headerStyle: styles.header,
         })}
         component={RoamDetails}

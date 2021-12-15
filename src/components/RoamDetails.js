@@ -1,6 +1,6 @@
 import React from "react";
-import { ImageBackground, View, Text, StyleSheet } from "react-native";
-import { Button, Caption, Headline, Card, Subheading, Title, Paragraph } from "react-native-paper";
+import { ImageBackground, View, StyleSheet } from "react-native";
+import { Caption, Subheading, Paragraph } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
@@ -22,10 +22,10 @@ const RoamDetails = ({ route, _ }) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentContainer}>
-        <Paragraph style={{ fontFamily: "Quicksand_400Regular" }}>
+        <Paragraph>
           On {roam.date} you harvested {haulDescription} {roam.mushroom}s
         </Paragraph>
-        <Caption style={{ fontFamily: "Quicksand_300Light" }}>{roam.vibes}</Caption>
+        <Caption>{roam.vibes}</Caption>
       </View>
       <View style={styles.imageContainer}>
         <ImageBackground
@@ -35,15 +35,15 @@ const RoamDetails = ({ route, _ }) => {
           <View style={styles.weatherContainer}>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={tempIconName} size={48} />
-              <Subheading style={styles.weatherLabel}>{roam.avgtemp} &#8451;</Subheading>
+              <Subheading>{roam.avgtemp} &#8451;</Subheading>
             </View>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={cloudsIconName} size={48} />
-              <Subheading style={styles.weatherLabel}>{roam.clouds} &#37;</Subheading>
+              <Subheading>{roam.clouds} &#37;</Subheading>
             </View>
             <View style={styles.weatherItem}>
               <MaterialCommunityIcons name={rainIconName} size={48} />
-              <Subheading style={styles.weatherLabel}>
+              <Subheading>
                 {roam.rainfall === -1 ? "No rain data." : `${roam.rainfall} mm`}
               </Subheading>
             </View>
@@ -79,9 +79,6 @@ export const styles = StyleSheet.create({
   weatherItem: {
     flex: 1,
     alignItems: "center",
-  },
-  weatherLabel: {
-    fontFamily: "Quicksand_400Regular",
   },
   contentContainer: {
     width: "100%",

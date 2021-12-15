@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { Snackbar } from "react-native-paper";
 
 import { useStateValue, setNotification } from "../context/AppState";
+import theme from "../theme";
 
 const Notification = () => {
   const [{ notification }, dispatch] = useStateValue();
@@ -23,8 +24,7 @@ const Notification = () => {
 const styles = StyleSheet.create({
   snack: {
     marginBottom: 70,
-    backgroundColor: "#000000d0",
-    fontFamily: "Quicksand_300Light",
+    backgroundColor: `${theme.colors.primary}e0`,
   },
 });
 

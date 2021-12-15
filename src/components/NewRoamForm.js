@@ -245,9 +245,6 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
   },
-  quicksand: {
-    fontFamily: "PermanentMarker_400Regular",
-  },
   image: {
     width: 256,
     height: 256,

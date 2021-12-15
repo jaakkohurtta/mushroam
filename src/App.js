@@ -1,15 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { Alert } from "react-native";
+
 import { useFonts, PermanentMarker_400Regular } from "@expo-google-fonts/permanent-marker";
-import {
-  Quicksand_300Light,
-  Quicksand_400Regular,
-  Quicksand_500Medium,
-  Quicksand_600SemiBold,
-  Quicksand_700Bold,
-} from "@expo-google-fonts/quicksand";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -27,13 +21,9 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   const [{ database }, dispatch] = useStateValue();
+
   let [fontsLoaded] = useFonts({
     PermanentMarker_400Regular,
-    Quicksand_300Light,
-    Quicksand_400Regular,
-    Quicksand_500Medium,
-    Quicksand_600SemiBold,
-    Quicksand_700Bold,
   });
 
   useEffect(() => {

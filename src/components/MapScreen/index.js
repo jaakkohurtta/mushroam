@@ -15,7 +15,6 @@ const MapScreen = () => {
       <MapStack.Screen
         options={{
           headerStyle: styles.header,
-          headerTitleStyle: { fontFamily: "Quicksand_600SemiBold" },
         }}
         name="New Roam"
         component={NewRoamForm}
